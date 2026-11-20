@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./moshina.css">
+  <title>AVTO LUX - Zamonaviy Avtosalon va Avtomobil Savdosi</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            dark: {
+              900: '#0b0f17',
+              850: '#111827',
+              800: '#162032',
+              700: '#1f2d45',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- Maxsus uslublar -->
+  
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen relative selection:bg-blue-600 selection:text-white">
+
+  <!-- Ambient Glow Effects -->
+  <div class="radial-glow w-96 h-96 bg-blue-600/20 top-0 left-1/4"></div>
+  <div class="radial-glow w-96 h-96 bg-indigo-600/15 top-96 right-10"></div>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="sticky top-0 z-40 glass-nav transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-105 transition">
+            <i class="fa-solid fa-car-burst text-xl"></i>
+          </div>
+          <div>
+            <span class="text-xl font-extrabold tracking-wider text-white flex items-center gap-1 font-heading">
+              AVTO<span class="text-blue-500">LUX</span>
+            </span>
+            <span class="text-[10px] tracking-widest text-gray-400 uppercase block -mt-1">Premium Avtosalon</span>
+          </div>
+        </a>
+
+        <!-- Desktop Menyu -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+          <a href="#bosh-sahifa" class="hover:text-blue-400 transition">Bosh sahifa</a>
+          <a href="#avtomobillar" class="hover:text-blue-400 transition">Avtomobillar</a>
+          <a href="#kalkulyator" class="hover:text-blue-400 transition">Kredit kalkulyatori</a>
+          <a href="#afzalliklar" class="hover:text-blue-400 transition">Afzalliklar</a>
+          <a href="#aloqa" class="hover:text-blue-400 transition">Aloqa</a>
+        </nav>
+
+        <!-- O'ng taraf: Telefon, Sevimlilar va CTA -->
+        <div class="hidden lg:flex items-center gap-5">
+          <!-- Sevimlilar -->
+          <button onclick="openFavoritesModal()" class="relative p-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-gray-300 hover:text-white transition">
+            <i class="fa-solid fa-heart text-lg"></i>
+            <span class="fav-badge hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-red-500 text-[11px] font-bold text-white flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Telefon hotline -->
+          <a href="tel:+998712000000" class="flex items-center gap-2 text-sm font-semibold text-gray-200 bg-dark-800/80 hover:bg-dark-700 px-4 py-2.5 rounded-xl border border-gray-800 transition">
+            <i class="fa-solid fa-phone-volume text-blue-400"></i>
+            <span>+998 (71) 200-00-00</span>
+          </a>
+
+          <!-- Test drayv CTA -->
+          <button onclick="openTestDriveModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-semibold shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5">
+            Test-drayv
+          </button>
+        </div>
+
+        <!-- Mobil menyu tugmasi -->
+        <div class="flex items-center gap-3 md:hidden">
+          <button onclick="openFavoritesModal()" class="relative p-2 rounded-lg bg-dark-800 text-gray-300">
+            <i class="fa-solid fa-heart"></i>
+            <span class="fav-badge hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[10px] font-bold text-white flex items-center justify-center">0</span>
+          </button>
+          <button id="mobile-menu-btn" class="p-2 rounded-lg bg-dark-800 text-gray-300 hover:text-white">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobil Dropdown menyu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark-850 border-b border-gray-800 px-4 pt-2 pb-6 space-y-3">
+      <a href="#bosh-sahifa" class="block py-2 text-gray-300 hover:text-blue-400 text-base font-medium">Bosh sahifa</a>
+      <a href="#avtomobillar" class="block py-2 text-gray-300 hover:text-blue-400 text-base font-medium">Avtomobillar</a>
+      <a href="#kalkulyator" class="block py-2 text-gray-300 hover:text-blue-400 text-base font-medium">Kredit kalkulyatori</a>
+      <a href="#afzalliklar" class="block py-2 text-gray-300 hover:text-blue-400 text-base font-medium">Afzalliklar</a>
+      <a href="#aloqa" class="block py-2 text-gray-300 hover:text-blue-400 text-base font-medium">Aloqa</a>
+      <div class="pt-3 border-t border-gray-800 flex flex-col gap-2">
+        <a href="tel:+998712000000" class="py-2.5 text-center rounded-xl bg-dark-800 text-white font-medium">
+          <i class="fa-solid fa-phone mr-2 text-blue-400"></i> +998 (71) 200-00-00
+        </a>
+        <button onclick="openTestDriveModal()" class="w-full py-2.5 rounded-xl bg-blue-600 text-white font-semibold">
+          Test-drayvga yozilish
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="bosh-sahifa" class="relative pt-12 pb-24 overflow-hidden border-b border-gray-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <i class="fa-solid fa-sparkles text-amber-400"></i> Rasmiy Kafolat & Tezkor Lizing
+        </div>
+        <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 font-heading leading-tight">
+          Orzuingizdagi Avtomobilni <br>
+          <span class="gradient-text">Qulay Narxda</span> Toping
+        </h1>
+        <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          O'zbekistondagi eng mashhur brendlar: BYD, Chevrolet, Kia, Zeekr va BMW modellarini 1 kunda rasmiylashtiring yoki foydali kreditga oling.
+        </p>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto mt-8 pt-6 border-t border-gray-800/80">
+          <div>
+            <div class="text-2xl font-black text-white">500+</div>
+            <div class="text-xs text-gray-400">Mavjud mashina</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-blue-400">1 Kunda</div>
+            <div class="text-xs text-gray-400">Hujjatlashtirish</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-emerald-400">5 Yil</div>
+            <div class="text-xs text-gray-400">Rasmiy kafolat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tezkor Qidiruv Paneli (Hero Filter Bar) -->
+      <div class="max-w-4xl mx-auto glass-panel p-4 sm:p-6 rounded-3xl shadow-2xl shadow-black/80">
+        <form id="hero-filter-form" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          
+          <!-- Marka -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1.5">
+              <i class="fa-solid fa-tag text-blue-400 mr-1"></i> Marka
+            </label>
+            <select id="hero-brand" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+              <option value="all">Barcha markalar</option>
+              <option value="BYD">BYD</option>
+              <option value="Chevrolet">Chevrolet</option>
+              <option value="Kia">Kia</option>
+              <option value="Zeekr">Zeekr</option>
+              <option value="BMW">BMW</option>
+              <option value="Mercedes-Benz">Mercedes-Benz</option>
+              <option value="Li Auto">Li Auto (Lixiang)</option>
+              <option value="Hyundai">Hyundai</option>
+              <option value="Chery">Chery</option>
+            </select>
+          </div>
+
+          <!-- Kuzov turi -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1.5">
+              <i class="fa-solid fa-car-side text-blue-400 mr-1"></i> Kuzov turi
+            </label>
+            <select id="hero-type" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+              <option value="all">Barcha turlar</option>
+              <option value="electric">Elektromobillar</option>
+              <option value="suv">Krossover va SUV</option>
+              <option value="sedan">Sedanlar</option>
+              <option value="hybrid">Gibridlar</option>
+              <option value="premium">Premial</option>
+            </select>
+          </div>
+
+          <!-- Maksimal narx -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1.5">
+              <i class="fa-solid fa-dollar-sign text-blue-400 mr-1"></i> Maksimal narx
+            </label>
+            <select id="hero-price" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+              <option value="all">Cheklovlarsiz</option>
+              <option value="25000">$25,000 gacha</option>
+              <option value="40000">$40,000 gacha</option>
+              <option value="70000">$70,000 gacha</option>
+              <option value="120000">$120,000 gacha</option>
+            </select>
+          </div>
+
+          <!-- Qidirish tugmasi -->
+          <div class="flex items-end">
+            <button type="submit" class="w-full h-[46px] rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition">
+              <i class="fa-solid fa-magnifying-glass"></i> Qidirish
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OMMABOP BRENDLAR SLAYDERI -->
+  <section class="py-10 border-b border-gray-800/60 bg-dark-850/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Ommabop brendlar bo'yicha saralash:</span>
+      </div>
+      <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="BYD">
+          <i class="fa-solid fa-bolt text-amber-400"></i> BYD
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Chevrolet">
+          <i class="fa-solid fa-plus text-amber-500"></i> Chevrolet
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Kia">
+          <i class="fa-solid fa-shield text-red-500"></i> Kia
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Zeekr">
+          <i class="fa-solid fa-gem text-blue-400"></i> Zeekr
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="BMW">
+          <i class="fa-solid fa-circle-dot text-sky-400"></i> BMW
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Mercedes-Benz">
+          <i class="fa-solid fa-star text-gray-300"></i> Mercedes-Benz
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Li Auto">
+          <i class="fa-solid fa-crown text-purple-400"></i> Li Auto
+        </button>
+        <button class="brand-pill px-5 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 border border-gray-800 text-xs font-bold text-white whitespace-nowrap transition flex items-center gap-2" data-brand="Hyundai">
+          <i class="fa-solid fa-road text-indigo-400"></i> Hyundai
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVTOMOBILLAR KATALOGI -->
+  <section id="avtomobillar" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Sarlavha va Kategoriya tablari -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 block">Katalog</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+            Mavjud Avtomobillar
+          </h2>
+        </div>
+
+        <!-- Kategoriya tablari -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-blue-600 text-white shadow-lg" data-category="all">
+            Barchasi
+          </button>
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gray-800/80 text-gray-300 hover:bg-gray-700" data-category="electric">
+            Elektromobil
+          </button>
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gray-800/80 text-gray-300 hover:bg-gray-700" data-category="suv">
+            Krossover & SUV
+          </button>
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gray-800/80 text-gray-300 hover:bg-gray-700" data-category="sedan">
+            Sedan
+          </button>
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gray-800/80 text-gray-300 hover:bg-gray-700" data-category="hybrid">
+            Gibrid
+          </button>
+          <button class="cat-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-gray-800/80 text-gray-300 hover:bg-gray-700" data-category="premium">
+            Premial
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtr va Qidiruv Bar -->
+      <div class="glass-panel p-4 rounded-2xl mb-8 flex flex-col lg:flex-row items-center justify-between gap-4">
+        
+        <!-- Matnli qidiruv -->
+        <div class="relative w-full lg:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input type="text" id="search-cars" placeholder="Model, marka qidirish..." class="w-full bg-dark-900 border border-gray-700 rounded-xl pl-10 pr-4 py-2 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500">
+        </div>
+
+        <!-- Narx slayderi -->
+        <div class="w-full lg:w-80 flex items-center gap-4">
+          <span class="text-xs text-gray-400 whitespace-nowrap">Maks narx:</span>
+          <input type="range" id="price-range" min="15000" max="150000" step="5000" value="150000" class="w-full">
+          <span id="price-range-display" class="text-xs font-bold text-blue-400 min-w-[70px] text-right">$150,000</span>
+        </div>
+
+        <!-- Saralash va Hisob -->
+        <div class="w-full lg:w-auto flex items-center justify-between lg:justify-end gap-4">
+          <span id="cars-count" class="text-xs text-gray-400">12 ta avtomobil topildi</span>
+          <select id="sort-select" class="bg-dark-900 border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+            <option value="popular">Tavsiya etilganlar</option>
+            <option value="price-asc">Narx: arzondan qimmatga</option>
+            <option value="price-desc">Narx: qimmatdan arzonga</option>
+            <option value="year-desc">Yili: eng yangilari</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- AVTOMOBILLAR GRIDI -->
+      <div id="cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KREDIT VA LIZING KALKULYATORI -->
+  <section id="kalkulyator" class="py-20 bg-dark-850/60 border-y border-gray-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2 block">Moliyaviy Xizmatlar</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading mb-4">
+          Avtokredit & Lizing Kalkulyatori
+        </h2>
+        <p class="text-gray-300 text-sm">
+          O'zingizga ma'qul bo'lgan to'lov shartlarini hisoblang va oylik badal miqdorini darhol bilib oling.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+        
+        <!-- Kalkulyator boshqaruvlari -->
+        <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl space-y-6">
+          
+          <!-- Mashina narxi -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-semibold text-gray-300">Avtomobil narxi:</label>
+              <span id="calc-price-val" class="text-base font-extrabold text-blue-400">$30,000</span>
+            </div>
+            <input type="range" id="calc-price" min="10000" max="120000" step="1000" value="30000" class="w-full">
+            <div class="flex justify-between text-[11px] text-gray-500 mt-1">
+              <span>$10,000</span>
+              <span>$120,000</span>
+            </div>
+          </div>
+
+          <!-- Boshlang'ich to'lov -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-semibold text-gray-300">Boshlang'ich to'lov (%):</label>
+              <span id="calc-down-val" class="text-base font-extrabold text-emerald-400">30% ($9,000)</span>
+            </div>
+            <input type="range" id="calc-down" min="15" max="70" step="5" value="30" class="w-full">
+            <div class="flex justify-between text-[11px] text-gray-500 mt-1">
+              <span>15%</span>
+              <span>70%</span>
+            </div>
+          </div>
+
+          <!-- Muddat -->
+          <div>
+            <label class="text-sm font-semibold text-gray-300 block mb-2">Kredit muddati:</label>
+            <div class="grid grid-cols-4 gap-2">
+              <select id="calc-term" class="col-span-4 bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+                <option value="12">12 oy (1 yil)</option>
+                <option value="24">24 oy (2 yil)</option>
+                <option value="36" selected>36 oy (3 yil)</option>
+                <option value="48">48 oy (4 yil)</option>
+                <option value="60">60 oy (5 yil)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Yillik foiz stavkasi -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-semibold text-gray-300">Yillik foiz stavkasi (%):</label>
+              <span id="calc-rate-val" class="text-base font-extrabold text-amber-400">18%</span>
+            </div>
+            <input type="range" id="calc-rate" min="12" max="28" step="1" value="18" class="w-full">
+            <div class="flex justify-between text-[11px] text-gray-500 mt-1">
+              <span>12%</span>
+              <span>28%</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Natijalar bloki -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-900 p-6 sm:p-8 rounded-3xl border border-blue-500/30 shadow-2xl">
+          <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Hisoblash natijasi</div>
+          
+          <div class="mb-6 pb-6 border-b border-gray-800">
+            <span class="text-xs text-gray-400 block mb-1">Oylik to'lov:</span>
+            <div id="res-monthly-usd" class="text-4xl font-black text-white">$759</div>
+            <div id="res-monthly-uzs" class="text-sm font-semibold text-emerald-400 mt-1">~ 9 715 000 so'm / oy</div>
+          </div>
+
+          <div class="space-y-3 text-xs mb-8">
+            <div class="flex justify-between text-gray-300">
+              <span class="text-gray-400">Boshlang'ich to'lov:</span>
+              <span id="res-downpayment" class="font-bold text-white">$9,000</span>
+            </div>
+            <div class="flex justify-between text-gray-300">
+              <span class="text-gray-400">Kredit summasi:</span>
+              <span id="res-loan-amount" class="font-bold text-white">$21,000</span>
+            </div>
+            <div class="flex justify-between text-gray-300">
+              <span class="text-gray-400">Umumiy foiz to'lovi:</span>
+              <span id="res-interest" class="font-bold text-amber-400">$6,324</span>
+            </div>
+            <div class="flex justify-between text-gray-300 pt-3 border-t border-gray-800 text-sm">
+              <span class="font-bold text-white">Jami to'lov:</span>
+              <span id="res-total" class="font-extrabold text-white">$36,324</span>
+            </div>
+          </div>
+
+          <button onclick="openTestDriveModal()" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-file-signature"></i> Kreditga ariza qoldirish
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AFZALLIKLAR SECTION -->
+  <section id="afzalliklar" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 block">Nega aynan biz?</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+          AVTO LUX Afzalliklari
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- 1 -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-blue-500/40 transition">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">5 Yillik Rasmiy Kafolat</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Har bir yangi avtomobil uchun dilerlik kafolati va sertifikatlangan servis xizmatlari.
+          </p>
+        </div>
+
+        <!-- 2 -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-blue-500/40 transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">1 Kunda Rasmiylashtirish</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            DYXX ro'yxatdan o'tkazish, davlat raqami va sug'urta polisini shu yerning o'zida 1 kunda oling.
+          </p>
+        </div>
+
+        <!-- 3 -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-blue-500/40 transition">
+          <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Trade-In Dasturi</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Eski mashinangizni adolatli bozor bahosida baholab, yangi avtomobilga almashtirib bering.
+          </p>
+        </div>
+
+        <!-- 4 -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-blue-500/40 transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Qulay Kredit va Lizing</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            O'zbekistonning 10 dan ortiq yetakchi banklari bilan hamkorlikda imtiyozli foiz stavkalari.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MIJOZLAR FIKRI (TESTIMONIALS) -->
+  <section class="py-20 bg-dark-850/40 border-t border-gray-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2 block">Mijozlarimiz fikrlari</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+          Bizga Ishonganlar
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-panel p-6 rounded-2xl relative">
+          <div class="flex text-amber-400 text-xs mb-3">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">
+            "BYD Song Plus oldim. Xodimlar juda xushmuomala, hujjatlarni tushlikkacha tayyorlab, davlat raqamini topshirishdi. Rahmat kattakon!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm">
+              JR
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Javohir Rasulov</h4>
+              <span class="text-[11px] text-gray-400">Toshkent shahar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl relative">
+          <div class="flex text-amber-400 text-xs mb-3">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">
+            "Kredit kalkulyatori orqali hisoblab, Tracker modelini lizingga oldim. Oylik to'lovi ham, boshlang'ich summasi ham juda maqul keldi."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">
+              SM
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Sardor Mirzayev</h4>
+              <span class="text-[11px] text-gray-400">Samarqand shahar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl relative">
+          <div class="flex text-amber-400 text-xs mb-3">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">
+            "Zeekr 001 xarid qildim. Avtomobil haqida to'liq instruktaj o'tkazishdi, uyga quvvatlash stansiyasini ham o'rnatib berishdi. Super servis!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white text-sm">
+              OA
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Oybek Aliyev</h4>
+              <span class="text-[11px] text-gray-400">Farg'ona shahar</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ALOQA VA FILIALLAR SECTION -->
+  <section id="aloqa" class="py-20 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Chap taraf: Bog'lanish ma'lumotlari -->
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 block">Biz bilan bog'laning</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading mb-6">
+            Avtosalonimizga Tashrif Buyuring
+          </h2>
+          <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+            Barcha modellarni jonli ko'rish, bepul test-drayvdan o'tish va mutaxassis maslahatini olish uchun har kuni soat 09:00 dan 20:00 gacha eshigimiz ochiq.
+          </p>
+
+          <div class="space-y-4">
+            
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-dark-800 border border-gray-800">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Bosh filial (Toshkent)</h4>
+                <p class="text-xs text-gray-400">Sergeli tumani, Yangi Sergeli ko'chasi 45-uy (Avtomobil bozori yaqinida)</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-dark-800 border border-gray-800">
+              <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Ish tartibi</h4>
+                <p class="text-xs text-gray-400">Dushanba - Yakshanba: 09:00 dan 20:00 gacha (Dam olish kunisiz)</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-dark-800 border border-gray-800">
+              <div class="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Tezkor aloqa</h4>
+                <p class="text-xs text-gray-400">+998 (71) 200-00-00 • +998 (90) 123-45-67</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- O'ng taraf: Tezkor konsultatsiya formasi -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-700/80">
+          <h3 class="text-xl font-bold text-white mb-2">Bepul Konsultatsiya Oling</h3>
+          <p class="text-xs text-gray-400 mb-6">Telefon raqamingizni qoldiring, 10 daqiqa ichida mutaxassisimiz sizga qo'ng'iroq qiladi.</p>
+
+          <form onsubmit="event.preventDefault(); showToast('Rahmat! Arizangiz qabul qilindi, menejerimiz tez orada bog\'lanadi.', 'success'); this.reset();" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">Ismingiz</label>
+              <input type="text" required placeholder="Masalan: Sardor" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">Telefon raqamingiz</label>
+              <div class="flex">
+                <span class="inline-flex items-center px-3.5 rounded-l-xl border border-r-0 border-gray-700 bg-dark-800 text-gray-400 text-sm">
+                  +998
+                </span>
+                <input type="tel" required placeholder="90 123 45 67" class="w-full bg-dark-900 border border-gray-700 rounded-r-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">Qiziqtirgan avtomobil yoki savolingiz</label>
+              <textarea rows="3" placeholder="Kredit shartlari, BYD narxlari..." class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition">
+              Ariza yuborish
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-900 border-t border-gray-800 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-gray-800">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white">
+            <i class="fa-solid fa-car-burst text-lg"></i>
+          </div>
+          <span class="text-lg font-black text-white font-heading">
+            AVTO<span class="text-blue-500">LUX</span>
+          </span>
+        </div>
+
+        <div class="flex items-center gap-6 text-xs text-gray-400">
+          <a href="#bosh-sahifa" class="hover:text-white transition">Bosh sahifa</a>
+          <a href="#avtomobillar" class="hover:text-white transition">Katalog</a>
+          <a href="#kalkulyator" class="hover:text-white transition">Kalkulyator</a>
+          <a href="#aloqa" class="hover:text-white transition">Filiallar</a>
+        </div>
+
+        <div class="flex items-center gap-4 text-gray-400">
+          <a href="#" class="w-9 h-9 rounded-full bg-dark-800 hover:bg-blue-600 hover:text-white flex items-center justify-center transition">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-dark-800 hover:bg-pink-600 hover:text-white flex items-center justify-center transition">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-dark-800 hover:bg-red-600 hover:text-white flex items-center justify-center transition">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+        <div>© 2026 AVTO LUX Avtosalon. Barcha huquqlar himoyalangan.</div>
+        <div>Toshkent, O'zbekiston</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALLAR ==================== -->
+
+  <!-- 1. Mashina tafsilotlari modali -->
+  <div id="car-detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="modal-content relative bg-dark-850 border border-gray-700 rounded-3xl max-w-4xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl z-10">
+      <button onclick="closeModal('car-detail-modal')" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-dark-800 hover:bg-dark-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      <div id="car-detail-content">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Test-drayv arizasi modali -->
+  <div id="test-drive-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="modal-content relative bg-dark-850 border border-gray-700 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl z-10">
+      <button onclick="closeModal('test-drive-modal')" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-dark-800 hover:bg-dark-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 flex items-center justify-center mx-auto mb-3 text-xl">
+          <i class="fa-solid fa-key"></i>
+        </div>
+        <h3 class="text-xl font-bold text-white">Test-Drayvga Yozilish</h3>
+        <p class="text-xs text-gray-400 mt-1">Avtomobilni o'zingiz boshqarib ko'ring va his qiling</p>
+      </div>
+
+      <form onsubmit="handleTestDriveSubmit(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-gray-300 mb-1">Avtomobil modeli</label>
+          <select id="td-car-select" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+            <!-- JS to'ldiradi -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-300 mb-1">Ism va familiyangiz</label>
+          <input type="text" id="td-name" required placeholder="Masalan: Sardor Komilov" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-300 mb-1">Telefon raqamingiz</label>
+          <div class="flex">
+            <span class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-gray-700 bg-dark-800 text-gray-400 text-sm">
+              +998
+            </span>
+            <input type="tel" id="td-phone" required placeholder="90 123 45 67" class="w-full bg-dark-900 border border-gray-700 rounded-r-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-300 mb-1">Sizga qulay filial</label>
+          <select class="w-full bg-dark-900 border border-gray-700 rounded-xl px-3.5 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+            <option>Toshkent (Sergeli filiali)</option>
+            <option>Toshkent (Chilonzor filiali)</option>
+            <option>Samarqand filiali</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition mt-2">
+          Arizani tasdiqlash
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Taqqoslash modali -->
+  <div id="compare-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="modal-content relative bg-dark-850 border border-gray-700 rounded-3xl max-w-5xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl z-10">
+      <button onclick="closeModal('compare-modal')" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-dark-800 hover:bg-dark-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      
+      <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-code-compare text-blue-400"></i> Avtomobillarni Taqqoslash
+      </h3>
+
+      <div id="compare-table-content">
+        <!-- JS to'ldiradi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Sevimlilar modali -->
+  <div id="fav-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="modal-content relative bg-dark-850 border border-gray-700 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl z-10">
+      <button onclick="closeModal('fav-modal')" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-dark-800 hover:bg-dark-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-heart text-red-500"></i> Saqlangan Avtomobillar
+      </h3>
+
+      <div id="fav-list" class="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
+        <!-- JS to'ldiradi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Floating Taqqoslash Tugmasi (Pastki o'ng burchak) -->
+  <div id="compare-floating-btn" class="hidden fixed bottom-6 right-6 z-40">
+    <button onclick="openCompareModal()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-2xl shadow-blue-600/50 flex items-center gap-2.5 transition transform hover:scale-105">
+      <i class="fa-solid fa-code-compare"></i>
+      <span>Taqqoslash</span>
+      <span id="compare-count" class="w-5 h-5 rounded-full bg-white text-blue-600 text-xs font-black flex items-center justify-center">0</span>
+    </button>
+  </div>
+
+  <!-- 6. Xabarnoma (Toast) konteyneri -->
+  <div id="toast-container" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript fayllar -->
+  <script src="./kj.js"></script>
+  <script src="./js.js"></script>
+</body>
+</html>
